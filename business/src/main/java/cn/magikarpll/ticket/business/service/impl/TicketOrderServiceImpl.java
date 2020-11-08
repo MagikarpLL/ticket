@@ -5,6 +5,7 @@ import cn.magikarpll.ticket.business.service.TicketOrderService;
 public class TicketOrderServiceImpl implements TicketOrderService {
     @Override
     public String startOrderTicket() {
+
         return null;
     }
 
