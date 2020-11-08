@@ -10,6 +10,7 @@
     <module>login</module>
     <module>order</module>
     <module>notify</module>
+    <module>business</module>
   </modules>
   <parent>
     <groupId>org.springframework.boot</groupId>

@@ -1,4 +1,4 @@
-package cn.magikarpll.ticket;
+package cn.magikarpll.ticket.order;
 
 /**
  * Hello world!
