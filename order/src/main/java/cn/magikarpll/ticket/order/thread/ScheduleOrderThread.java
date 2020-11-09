@@ -1,6 +1,6 @@
 package cn.magikarpll.ticket.order.thread;
 
-public class ScheduleOrderThread extends Thread{
+public class ScheduleOrderThread implements Runnable{
 
     @Override
     public void run() {
