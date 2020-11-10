@@ -11,6 +11,8 @@ public class BanBanResponseEntity {
 
     public static final Integer SUCCESS = 1;
 
+    public static final Integer NOT_SUCCESS = 0;
+
     public static final Integer FAILURE = -1;
 
     private Integer code;
@@ -19,6 +21,6 @@ public class BanBanResponseEntity {
 
     private Boolean status;
 
-    private Object results;
+    private Object result;
 
 }

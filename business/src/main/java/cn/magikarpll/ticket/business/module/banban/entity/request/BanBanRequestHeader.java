@@ -14,7 +14,7 @@ public class BanBanRequestHeader {
     private static MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
 
     //init
-    {
+    static {
         multiValueMap.set("user-agent","OXF-AN10(Android/10) WXApp(WXSample/4.5.6) Weex/0.20.0.1 1080x2277");
         multiValueMap.set("Host","sim.ctl.chelizitech.com:9901");
         multiValueMap.set("Connection","Keep-Alive");

@@ -18,8 +18,8 @@ public class ChangeRequest {
     private Long idCardNum;
 
     public MultiValueMap<String,String> buildChangeRequest(){
-        multiValueMap.set("CompanyId",companyId.toString());
-        multiValueMap.set("StuId",idCardNum.toString());
+        multiValueMap.set("companyId",companyId.toString());
+        multiValueMap.set("idCardNum",idCardNum.toString());
         return this.multiValueMap;
     }
 
