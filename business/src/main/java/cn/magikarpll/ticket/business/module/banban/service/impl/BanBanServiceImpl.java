@@ -40,7 +40,6 @@ public class BanBanServiceImpl implements BanBanService {
     private RestTemplate restTemplate;
 
     @Override
-    @Test
     public void change() {
         MultiValueMap params = new ChangeRequest(16, 421182199604230035L).buildChangeRequest();
         MultiValueMap headers = BanBanRequestHeader.buildHeader(token);
