@@ -5,6 +5,8 @@ public class DailyOrderThread implements Runnable{
     @Override
     public void run() {
 
+
+
     }
 
 }

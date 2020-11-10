@@ -2,3 +2,25 @@ server:
   port: 8280
   servlet:
     context-path: /business
+
+banban:
+  token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpblR5cGUiOiJzdHVkZW50IiwiZXhwIjoxNjA3NTQ1ODAwLCJ1c2VySWQiOiIyMDIwMTAxMjIzMTYyMGR6NnB3cmVvd2Qzc3J0cjdlbWRleTQiLCJpYXQiOjE2MDQ5NzYwMTEsImp0aSI6ImFmYmFiNjVhNTQ5ZjQ3OTI4Yjk1OTZiNmNlOWIzZDUzIn0.iysaUZodsJo0d-3VFX4jCnkzyIS5Z-kih9EVfL2glDk
+
+ticket:
+  schedule:
+    startDateTime: fff
+    startTime: fff
+
+httpclient:
+  # 最大连接数
+  maxtotal: 64
+  # 每个route默认的最大连接数
+  defaultMaxPerRoute: 64
+  # 连接上服务器(握手成功)的时间，超出抛出connect timeout
+  connectTimeout: 10000
+  # 从连接池中获取连接的超时时间，超时间未拿到可用连接，会抛出org.apache.http.conn.ConnectionPoolTimeoutException: Timeout waiting for connection from pool
+  connectionRequestTimeout: 10000
+  # 服务器返回数据(response)的时间，超过抛出read timeout
+  socketTimeout: 10000
+  # 存活时间
+  validateAfterInactivity: 10000
