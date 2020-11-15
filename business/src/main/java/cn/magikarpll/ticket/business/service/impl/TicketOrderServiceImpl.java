@@ -2,6 +2,7 @@ package cn.magikarpll.ticket.business.service.impl;
 
 import cn.magikarpll.ticket.business.module.banban.service.BanBanService;
 import cn.magikarpll.ticket.business.service.TicketOrderService;
+import cn.magikarpll.ticket.common.exception.BusinessException;
 import cn.magikarpll.ticket.common.utils.DateUtils;
 import cn.magikarpll.ticket.login.thread.LoginThread;
 import cn.magikarpll.ticket.order.thread.DailyOrderThread;
@@ -30,10 +31,7 @@ public class TicketOrderServiceImpl implements TicketOrderService {
 
 
     @Override
-    public String startOrderTicket() {
-
-        banBanService.change();
-
+    public String startOrderTicket() throws BusinessException {
 
 //        //启动一个登录线程
 //        threadPoolExecutor.scheduleAtFixedRate(new LoginThread(),0, 10, TimeUnit.SECONDS);

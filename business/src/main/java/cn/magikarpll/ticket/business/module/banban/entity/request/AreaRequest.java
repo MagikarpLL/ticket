@@ -9,18 +9,13 @@ import org.springframework.util.MultiValueMap;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChangeRequest extends BaseBanbanRequest{
-
-
+public class AreaRequest extends BaseBanbanRequest{
 
     private Integer companyId;
-
-    private Long idCardNum;
 
     @Override
     public MultiValueMap<String,String> buildRequest(){
         multiValueMap.set("companyId",companyId.toString());
-        multiValueMap.set("idCardNum",idCardNum.toString());
         return this.multiValueMap;
     }
 

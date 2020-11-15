@@ -1,6 +1,7 @@
 package cn.magikarpll.ticket.business.controller;
 
 import cn.magikarpll.ticket.business.service.TicketOrderService;
+import cn.magikarpll.ticket.common.exception.BusinessException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +16,7 @@ public class TicketOrderController {
     private TicketOrderService ticketOrderService;
 
     @GetMapping("/start")
-    public String startOrderTicket() {
+    public String startOrderTicket() throws BusinessException {
         ticketOrderService.startOrderTicket();
         return "start";
     }

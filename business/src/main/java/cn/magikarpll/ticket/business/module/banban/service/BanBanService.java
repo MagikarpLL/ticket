@@ -1,19 +1,20 @@
 package cn.magikarpll.ticket.business.module.banban.service;
 
 import cn.magikarpll.ticket.business.module.banban.entity.response.*;
+import cn.magikarpll.ticket.common.exception.BusinessException;
 
 public interface BanBanService {
 
-    void change();
+    void change() throws BusinessException;
 
-    AreaEntity area();
+    AreaEntity area() throws BusinessException;
 
-    DeptEntity dept();
+    DeptEntity dept() throws BusinessException;
 
-    AppointmentCountEntity getAppointmentCount();
+    AppointmentCountEntity getAppointmentCount() throws BusinessException;
 
-    SimulatorNumberEntity getSimulatorNumber();
+    SimulatorNumberEntity getSimulatorNumber() throws BusinessException;
 
-    Boolean saveAppointment();
+    Boolean saveAppointment() throws BusinessException;
 
 }
