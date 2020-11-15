@@ -1,9 +1,14 @@
 package cn.magikarpll.ticket.business.module.banban.entity.request;
 
+import cn.magikarpll.ticket.business.module.banban.entity.response.AppointmentCountEntity;
+import cn.magikarpll.ticket.business.module.banban.entity.response.SimulatorNumberEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.util.MultiValueMap;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -26,4 +31,16 @@ public class SimulatorNumberRequest extends BaseBanbanRequest{
         multiValueMap.set("time",time);
         return this.multiValueMap;
     }
+
+    public static List<SimulatorNumberRequest> convertToEntiy(List<AppointmentCountEntity> appointmentCountEntities, Integer roomId){
+        List<SimulatorNumberRequest> simulatorNumberRequests = new ArrayList<>();
+        for(AppointmentCountEntity appointmentCountEntity: appointmentCountEntities){
+            SimulatorNumberRequest simulatorNumberRequest = new SimulatorNumberRequest();
+            simulatorNumberRequest.setRoomId(roomId);
+            simulatorNumberRequest.setTime(appointmentCountEntity.getTimes());
+            simulatorNumberRequests.add(simulatorNumberRequest);
+        }
+        return simulatorNumberRequests;
+    }
+
 }

@@ -80,14 +80,14 @@ public class BanBanServiceImpl implements BanBanService {
      * @throws BusinessException
      */
     @Override
-    public DeptEntity dept() throws BusinessException {
-        MultiValueMap params = new DeptRequest(440303,"22.548093","114.05115",1).buildRequest();
+    public List<DeptEntity> dept(Integer areaId) throws BusinessException {
+        MultiValueMap params = new DeptRequest(areaId,"22.548093","114.05115",1).buildRequest();
         MultiValueMap headers = BanBanRequestHeader.buildHeader(token);
         BanBanResponseEntity banBanResponseEntity = HttpUtils.httpPostForForm(DEPT_URL, restTemplate, params, headers
                 , BanBanResponseEntity.class);
         List<DeptEntity> deptEntities = dealResponse(banBanResponseEntity, DEPT_URL, params);
         log.info(deptEntities.toString());
-        return null;
+        return deptEntities;
     }
 
     /**
@@ -97,8 +97,8 @@ public class BanBanServiceImpl implements BanBanService {
      * @throws BusinessException
      */
     @Override
-    public AppointmentCountEntity getAppointmentCount() throws BusinessException {
-        MultiValueMap params = new AppointmentCountRequest(1,10498098,267,"2020-11-16").buildRequest();
+    public List<AppointmentCountEntity> getAppointmentCount(Integer roomId, String planDate) throws BusinessException {
+        MultiValueMap params = new AppointmentCountRequest(1,10498098,roomId,planDate).buildRequest();
         MultiValueMap headers = BanBanRequestHeader.buildHeader(token);
         BanBanResponseEntity banBanResponseEntity = HttpUtils.httpPostForForm(APPOINTMENT_COUNT_URL, restTemplate, params, headers
                 , BanBanResponseEntity.class);
@@ -108,20 +108,20 @@ public class BanBanServiceImpl implements BanBanService {
     }
 
     /**
-     * planDate和time需要传入，其他为固定值
+     * roomId , planDate和time需要传入，其他为固定值
      * 返回值为可预订的模拟机数据 {"SimId":224,"name":"SG-185","isOrder":1}
      * @return
      * @throws BusinessException
      */
     @Override
-    public SimulatorNumberEntity getSimulatorNumber() throws BusinessException {
-        MultiValueMap params = new SimulatorNumberRequest(1,267,"2020-11-11","14:00-15:00").buildRequest();
+    public List<SimulatorNumberEntity> getSimulatorNumber(Integer roomId, String planDate, String time) throws BusinessException {
+        MultiValueMap params = new SimulatorNumberRequest(1,roomId,planDate,time).buildRequest();
         MultiValueMap headers = BanBanRequestHeader.buildHeader(token);
         BanBanResponseEntity banBanResponseEntity = HttpUtils.httpPostForForm(SIMULATOR_NUMBER_URL, restTemplate, params, headers
                 , BanBanResponseEntity.class);
         List<SimulatorNumberEntity> simulatorNumberEntities = dealResponse(banBanResponseEntity, SIMULATOR_NUMBER_URL, params);
         log.info(simulatorNumberEntities.toString());
-        return null;
+        return simulatorNumberEntities;
     }
 
     /**

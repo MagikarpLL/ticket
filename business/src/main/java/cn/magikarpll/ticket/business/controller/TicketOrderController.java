@@ -33,4 +33,10 @@ public class TicketOrderController {
         return "query";
     }
 
+    @GetMapping("/export")
+    public String exportData() {
+        ticketOrderService.exportData();
+        return "export";
+    }
+
 }
