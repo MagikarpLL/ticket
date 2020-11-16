@@ -38,6 +38,9 @@ public class TicketOrderServiceImpl implements TicketOrderService {
     @Value("${ticket.schedule.startTime}")
     private String startTime;
 
+    @Value("${ticket.schedule.query-date}")
+    private String queryDate;
+
     @Resource
     private BanBanService banBanService;
 
@@ -73,10 +76,15 @@ public class TicketOrderServiceImpl implements TicketOrderService {
     }
 
     @Override
-    public String exportData() throws BusinessException {
+    public String exportData() throws Exception {
         List<DeptEntity> deptEntityList = new ArrayList<>();
+        List<DeptEntity> tempDeptEntities = null;
+        List<SimulatorNumberRequest> tempSimulatorNumberRequests = null;
         for(Integer i: AREA_CONSTANTS){
-            deptEntityList.addAll(banBanService.dept(i));
+            tempDeptEntities = banBanService.dept(i);
+            if(null!= tempDeptEntities){
+                deptEntityList.addAll(tempDeptEntities);
+            }
         }
 
         //按距离远近升序筛选出的roomId list 和 对应可用时间
@@ -88,16 +96,21 @@ public class TicketOrderServiceImpl implements TicketOrderService {
         //需要序列化，给每日刷新的那个用
         List<SimulatorNumberRequest> simulatorNumberRequests = new ArrayList<>();
         for(Integer iR: sortedRoomId){
-            simulatorNumberRequests.addAll(SimulatorNumberRequest.convertToEntiy(banBanService.getAppointmentCount(iR, LocalDate.now().format(DateTimeFormatter.ISO_DATE)), iR));
+            tempSimulatorNumberRequests = SimulatorNumberRequest.convertToEntiy(banBanService.getAppointmentCount(iR, queryDate), iR);
+            if(null != tempSimulatorNumberRequests){
+                simulatorNumberRequests.addAll(tempSimulatorNumberRequests);
+            }
         }
-
+        //TODO
         //需要序列化，给定时抢票的用
         List<SaveAppointmentRequest> saveAppointmentRequests = new ArrayList<>();
         for(SimulatorNumberRequest simulatorNumberRequest: simulatorNumberRequests){
             //查询 并 筛选出已备案的模拟机编号
             List<SimulatorNumberEntity> simulatorNumberEntities = banBanService.getSimulatorNumber(simulatorNumberRequest.getRoomId(),
-                    LocalDate.now().format(DateTimeFormatter.ISO_DATE), simulatorNumberRequest.getTime()).stream().filter(s -> BanBanConstant.SIMULATOR_NUMBER_SET.contains(s.getName())).collect(Collectors.toList());
-            saveAppointmentRequests.addAll(SaveAppointmentRequest.convertToEntiy(simulatorNumberEntities, simulatorNumberRequest));
+                    queryDate, simulatorNumberRequest.getTime()).stream().filter(s -> BanBanConstant.SIMULATOR_NUMBER_SET.contains(s.getName())).collect(Collectors.toList());
+            if(null != simulatorNumberEntities){
+                saveAppointmentRequests.addAll(SaveAppointmentRequest.convertToEntiy(simulatorNumberEntities, simulatorNumberRequest));
+            }
         }
 
         //序列化保存simulatorNumberRequests和saveAppointmentRequests

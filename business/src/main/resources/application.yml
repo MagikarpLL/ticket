@@ -8,6 +8,7 @@ banban:
 
 ticket:
   schedule:
+    query-date: 2020-11-17
     startDateTime: fff
     startTime: fff
 

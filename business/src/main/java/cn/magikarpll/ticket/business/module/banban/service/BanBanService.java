@@ -7,16 +7,16 @@ import java.util.List;
 
 public interface BanBanService {
 
-    void change() throws BusinessException;
+    void change() throws BusinessException, Exception;
 
-    AreaEntity area() throws BusinessException;
+    AreaEntity area() throws BusinessException, Exception;
 
-    List<DeptEntity> dept(Integer areaId) throws BusinessException;
+    List<DeptEntity> dept(Integer areaId) throws BusinessException, Exception;
 
-    List<AppointmentCountEntity> getAppointmentCount(Integer roomId, String planDate) throws BusinessException;
+    List<AppointmentCountEntity> getAppointmentCount(Integer roomId, String planDate) throws BusinessException, Exception;
 
-    List<SimulatorNumberEntity> getSimulatorNumber(Integer roomId, String planDate, String time) throws BusinessException;
+    List<SimulatorNumberEntity> getSimulatorNumber(Integer roomId, String planDate, String time) throws BusinessException, Exception;
 
-    Boolean saveAppointment() throws BusinessException;
+    Boolean saveAppointment() throws BusinessException, Exception;
 
 }

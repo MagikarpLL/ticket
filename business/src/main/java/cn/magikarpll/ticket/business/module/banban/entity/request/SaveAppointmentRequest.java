@@ -57,6 +57,7 @@ public class SaveAppointmentRequest extends BaseBanbanRequest implements Seriali
     }
 
     public static List<SaveAppointmentRequest> convertToEntiy(List<SimulatorNumberEntity> simulatorNumberEntities, SimulatorNumberRequest simulatorNumberRequest){
+        if(null == simulatorNumberEntities){return null;}
         List<SaveAppointmentRequest> saveAppointmentRequests = new ArrayList<>();
         for(SimulatorNumberEntity simulatorNumberEntity: simulatorNumberEntities){
             SaveAppointmentRequest saveAppointmentRequest = new SaveAppointmentRequest();

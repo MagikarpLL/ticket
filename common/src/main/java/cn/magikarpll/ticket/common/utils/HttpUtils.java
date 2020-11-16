@@ -17,7 +17,7 @@ public class HttpUtils {
      * post methods  for  application/x-www-form-urlencoded
      * @param restTemplate
      */
-    public static  <T> T  httpPostForForm(String url, RestTemplate restTemplate, MultiValueMap<String,String> params, MultiValueMap<String,String> headers, Class<T> t){
+    public static  String  httpPostForForm(String url, RestTemplate restTemplate, MultiValueMap<String,String> params, MultiValueMap<String,String> headers){
         try{
             HttpHeaders headersMap = new HttpHeaders();
             //  请勿轻易改变此提交方式，大部分的情况下，提交方式都是表单提交
@@ -33,8 +33,7 @@ public class HttpUtils {
             //  执行HTTP请求
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
             if(response.getStatusCode().is2xxSuccessful()){
-                T result = JacksonHelper.json2pojo(response.getBody(), t);
-                return result;
+                return response.getBody();
             }else{
                 log.error("请求失败,http状态码为{},url为{}", response.getStatusCode(), url);
                 return null;

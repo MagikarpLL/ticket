@@ -65,6 +65,26 @@ public class JacksonHelper {
     }
 
     /**
+     * 转换为 list JavaBean
+     *
+     * @param jsonString
+     * @param clazz
+     * @return
+     * @throws Exception
+     */
+    public static <T> List<T> json2listpojo(String jsonString, Class<T> clazz) throws Exception {
+        if (jsonString == null) {
+            return null;
+        }
+        List<String> list = objectMapper.readValue(jsonString, List.class);
+        List<T> result = new ArrayList<>();
+        for(String s: list){
+            result.add(json2pojo(s, clazz));
+        }
+        return result;
+    }
+
+    /**
      * 字符串转换为 Map<String, Object>
      *
      * @param jsonString

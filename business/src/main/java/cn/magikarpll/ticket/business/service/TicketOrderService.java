@@ -11,6 +11,6 @@ public interface TicketOrderService {
 
     String queryOrderTicket();
 
-    String exportData() throws BusinessException;
+    String exportData() throws BusinessException, Exception;
 
 }

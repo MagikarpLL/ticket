@@ -36,6 +36,7 @@ public class SimulatorNumberRequest extends BaseBanbanRequest implements Seriali
     }
 
     public static List<SimulatorNumberRequest> convertToEntiy(List<AppointmentCountEntity> appointmentCountEntities, Integer roomId){
+        if(null == appointmentCountEntities){return null;}
         List<SimulatorNumberRequest> simulatorNumberRequests = new ArrayList<>();
         for(AppointmentCountEntity appointmentCountEntity: appointmentCountEntities){
             SimulatorNumberRequest simulatorNumberRequest = new SimulatorNumberRequest();
