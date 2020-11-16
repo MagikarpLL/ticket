@@ -34,7 +34,7 @@ public class TicketOrderController {
     }
 
     @GetMapping("/export")
-    public String exportData() {
+    public String exportData() throws BusinessException {
         ticketOrderService.exportData();
         return "export";
     }

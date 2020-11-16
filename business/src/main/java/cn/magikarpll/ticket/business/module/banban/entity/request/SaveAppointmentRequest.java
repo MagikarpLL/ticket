@@ -7,13 +7,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.util.MultiValueMap;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SaveAppointmentRequest extends BaseBanbanRequest{
+public class SaveAppointmentRequest extends BaseBanbanRequest implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private Integer companyId;
 

@@ -10,6 +10,7 @@ import cn.magikarpll.ticket.business.module.banban.service.BanBanService;
 import cn.magikarpll.ticket.business.service.TicketOrderService;
 import cn.magikarpll.ticket.common.exception.BusinessException;
 import cn.magikarpll.ticket.common.utils.DateUtils;
+import cn.magikarpll.ticket.common.utils.StreamUtils;
 import cn.magikarpll.ticket.login.thread.LoginThread;
 import cn.magikarpll.ticket.order.thread.DailyOrderThread;
 import cn.magikarpll.ticket.order.thread.ScheduleOrderThread;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -78,7 +80,11 @@ public class TicketOrderServiceImpl implements TicketOrderService {
         }
 
         //按距离远近升序筛选出的roomId list 和 对应可用时间
-        List<Integer> sortedRoomId = deptEntityList.stream().filter(d -> Double.parseDouble(d.getDistance()) < 10d).sorted(Comparator.comparing(DeptEntity::getDistance)).map(d -> d.getRoomId()).collect(Collectors.toList());
+        List<Integer> sortedRoomId = deptEntityList.stream()
+                .filter(d -> Double.parseDouble(d.getDistance()) < 10d)
+                .sorted(Comparator.comparing(DeptEntity::getDistance))
+                .map(d -> d.getRoomId())
+                .collect(Collectors.toList());
         //需要序列化，给每日刷新的那个用
         List<SimulatorNumberRequest> simulatorNumberRequests = new ArrayList<>();
         for(Integer iR: sortedRoomId){
@@ -95,7 +101,8 @@ public class TicketOrderServiceImpl implements TicketOrderService {
         }
 
         //序列化保存simulatorNumberRequests和saveAppointmentRequests
-
+        StreamUtils.writeObject(simulatorNumberRequests, new File("classpath:simulatorNumberRequests"));
+        StreamUtils.writeObject(saveAppointmentRequests, new File("classpath:saveAppointmentRequests"));
         return null;
     }
 

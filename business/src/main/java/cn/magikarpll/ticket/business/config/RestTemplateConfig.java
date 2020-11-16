@@ -46,9 +46,14 @@ public class RestTemplateConfig {
     @Value("${httpclient.validateAfterInactivity}")
     public Integer validateAfterInactivity;
 
-    @Bean
+    @Bean("httpRestTemplate")
     public RestTemplate restTemplate() {
         return new RestTemplate(httpRequestFactory());
+    }
+
+    @Bean("httpsRestTemplate")
+    public RestTemplate httpsRestTemplate() {
+        return new RestTemplate(new HttpsClientRequestFactory());
     }
 
     @Bean

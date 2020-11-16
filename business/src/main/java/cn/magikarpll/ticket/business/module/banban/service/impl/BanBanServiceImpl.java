@@ -37,7 +37,7 @@ public class BanBanServiceImpl implements BanBanService {
     @Value("${banban.token}")
     private String token;
 
-    @Resource
+    @Resource(name = "httpRestTemplate")
     private RestTemplate restTemplate;
 
 
@@ -119,7 +119,7 @@ public class BanBanServiceImpl implements BanBanService {
         MultiValueMap headers = BanBanRequestHeader.buildHeader(token);
         BanBanResponseEntity banBanResponseEntity = HttpUtils.httpPostForForm(SIMULATOR_NUMBER_URL, restTemplate, params, headers
                 , BanBanResponseEntity.class);
-        List<SimulatorNumberEntity> simulatorNumberEntities = dealResponse(banBanResponseEntity, SIMULATOR_NUMBER_URL, params);
+        List<SimulatorNumberEntity> simulatorNumberEntities = dealResponse(banBanResponseEntity, SIMULATOR_NUMBER_URL, params, SimulatorNumberEntity.class);
         log.info(simulatorNumberEntities.toString());
         return simulatorNumberEntities;
     }
@@ -135,16 +135,18 @@ public class BanBanServiceImpl implements BanBanService {
         MultiValueMap headers = BanBanRequestHeader.buildHeader(token);
         BanBanResponseEntity banBanResponseEntity = HttpUtils.httpPostForForm(SAVE_APPOINTMENT_URL, restTemplate, params, headers
                 , BanBanResponseEntity.class);
-        dealResponse(banBanResponseEntity, SIMULATOR_NUMBER_URL, params);
+        dealResponse(banBanResponseEntity, SIMULATOR_NUMBER_URL, params, null);
         return null;
     }
 
-    private static <T> T dealResponse(BanBanResponseEntity banBanResponseEntity, String url, MultiValueMap params) throws BusinessException {
+    private static <T,K> T dealResponse(BanBanResponseEntity banBanResponseEntity, String url, MultiValueMap params, K k) throws BusinessException {
         if (!banBanResponseEntity.getCode().equals(BanBanResponseEntity.SUCCESS)) {
             log.error("请求接口失败, URL为:{}, 请求参数为:{}, 返回消息为:{} ", url, params.toString(), banBanResponseEntity.getMessage());
             throw new BusinessException("请求失败!");
         } else {
             if (null != banBanResponseEntity.getResult()) {
+
+
                 return (T) banBanResponseEntity.getResult();
             }
             return null;
