@@ -5,7 +5,7 @@ import org.springframework.util.MultiValueMap;
 
 public abstract class BaseBanbanRequest {
 
-    protected static MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
+    protected MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
 
     public abstract MultiValueMap<String,String> buildRequest();
 

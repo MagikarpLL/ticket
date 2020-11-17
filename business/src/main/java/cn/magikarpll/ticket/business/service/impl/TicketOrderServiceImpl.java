@@ -99,29 +99,34 @@ public class TicketOrderServiceImpl implements TicketOrderService {
             tempSimulatorNumberRequests = SimulatorNumberRequest.convertToEntiy(banBanService.getAppointmentCount(iR, queryDate), iR);
             if(null != tempSimulatorNumberRequests){
                 simulatorNumberRequests.addAll(tempSimulatorNumberRequests);
+                tempSimulatorNumberRequests = null;
             }
         }
+
         //TODO
         //需要序列化，给定时抢票的用
         List<SaveAppointmentRequest> saveAppointmentRequests = new ArrayList<>();
         for(SimulatorNumberRequest simulatorNumberRequest: simulatorNumberRequests){
             //查询 并 筛选出已备案的模拟机编号
-            List<SimulatorNumberEntity> simulatorNumberEntities = banBanService.getSimulatorNumber(simulatorNumberRequest.getRoomId(),
-                    queryDate, simulatorNumberRequest.getTime()).stream().filter(s -> BanBanConstant.SIMULATOR_NUMBER_SET.contains(s.getName())).collect(Collectors.toList());
+            List<SimulatorNumberEntity> tempSimulatorNumberEntityList = banBanService.getSimulatorNumber(simulatorNumberRequest.getRoomId(),
+                    queryDate, simulatorNumberRequest.getTime());
+            List<SimulatorNumberEntity> simulatorNumberEntities = null;
+            if(null != tempSimulatorNumberEntityList){
+                simulatorNumberEntities =  tempSimulatorNumberEntityList.stream().filter(s -> BanBanConstant.SIMULATOR_NUMBER_SET.contains(s.getName())).collect(Collectors.toList());
+            }
             if(null != simulatorNumberEntities){
                 saveAppointmentRequests.addAll(SaveAppointmentRequest.convertToEntiy(simulatorNumberEntities, simulatorNumberRequest));
             }
         }
 
         //序列化保存simulatorNumberRequests和saveAppointmentRequests
-        StreamUtils.writeObject(simulatorNumberRequests, new File("classpath:simulatorNumberRequests"));
-        StreamUtils.writeObject(saveAppointmentRequests, new File("classpath:saveAppointmentRequests"));
-        return null;
+        StreamUtils.writeObject(simulatorNumberRequests, new File("simulatorNumberRequests"));
+        StreamUtils.writeObject(saveAppointmentRequests, new File("saveAppointmentRequests"));
+        return "success";
     }
 
     public static void initThreadPoolExecutor(){
 
     }
-
 
 }
