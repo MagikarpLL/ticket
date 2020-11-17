@@ -7,10 +7,29 @@ banban:
   token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpblR5cGUiOiJzdHVkZW50IiwiZXhwIjoxNjA4MTUwNjAwLCJ1c2VySWQiOiIyMDIwMTAxMjIzMTYyMGR6NnB3cmVvd2Qzc3J0cjdlbWRleTQiLCJpYXQiOjE2MDU1NzcyNTYsImp0aSI6IjE3ZTEyOWE3MDcwNzRhNmZiNmZkNTIwZTQ1MmU5OTVjIn0.OXmUsCDa-2ik9lPfQMEEmjdJmXG0s3z7YeXC8KABgyc
 
 ticket:
+  special:
+    inculde:
+      day:
+      time:
+    exclude:
+      day: 11-21
+      time: 08:00-13:00
+  daily:
+    common:
+      duration: 1,1,1,2,2,3
+      period: 3
+      start-time: 08:00
+      weekday:
+        start-time: 18:00
   schedule:
     query-date: 2020-11-17
-    startDateTime: fff
-    startTime: fff
+    common:
+      after: 2
+      begin-time: 08:25
+      start-time: 08:00
+      weekday:
+        start-time: 18:00
+
 
 httpclient:
   # 最大连接数
