@@ -35,12 +35,13 @@ public class SimulatorNumberRequest extends BaseBanbanRequest implements Seriali
         return this.multiValueMap;
     }
 
-    public static List<SimulatorNumberRequest> convertToEntiy(List<AppointmentCountEntity> appointmentCountEntities, Integer roomId){
+    public static List<SimulatorNumberRequest> convertToEntiy(List<AppointmentCountEntity> appointmentCountEntities, Integer roomId, String planDate){
         if(null == appointmentCountEntities){return null;}
         List<SimulatorNumberRequest> simulatorNumberRequests = new ArrayList<>();
         for(AppointmentCountEntity appointmentCountEntity: appointmentCountEntities){
             SimulatorNumberRequest simulatorNumberRequest = new SimulatorNumberRequest();
             simulatorNumberRequest.setRoomId(roomId);
+            simulatorNumberRequest.setPlanDate(planDate);
             simulatorNumberRequest.setTime(appointmentCountEntity.getTimes());
             simulatorNumberRequests.add(simulatorNumberRequest);
         }

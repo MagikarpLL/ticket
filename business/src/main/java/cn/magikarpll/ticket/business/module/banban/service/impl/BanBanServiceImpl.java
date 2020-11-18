@@ -91,6 +91,11 @@ public class BanBanServiceImpl implements BanBanService {
         return deptEntities;
     }
 
+    @Override
+    public List<DeptEntity> deptBatch(List<Integer> areaIds) throws Exception {
+        return null;
+    }
+
     /**
      * roomId和planDate需要传入  其他为固定值
      * 返回值为可预定的时间段数组  {"Times":"14:00-15:00","HadOrder":1,"CanOrder":0,"State":"0"}
@@ -105,6 +110,11 @@ public class BanBanServiceImpl implements BanBanService {
         String banBanResponseEntity = HttpUtils.httpPostForForm(APPOINTMENT_COUNT_URL, restTemplate, params, headers);
         List<AppointmentCountEntity> appointmentCountEntities = dealResponseForList(banBanResponseEntity, APPOINTMENT_COUNT_URL, params, AppointmentCountEntity.class);
         return appointmentCountEntities;
+    }
+
+    @Override
+    public List<AppointmentCountEntity> getAppointmentCountBatch(List<Integer> roomIds, List<String> planDates) throws Exception {
+        return null;
     }
 
     /**
@@ -123,6 +133,11 @@ public class BanBanServiceImpl implements BanBanService {
         return simulatorNumberEntities;
     }
 
+    @Override
+    public List<SimulatorNumberEntity> getSimulatorNumberBatch(List<SimulatorNumberRequest> simulatorNumberRequests) throws Exception {
+        return null;
+    }
+
     /**
      * planDate times roomId simId 需要传入  其他为固定值
      *
@@ -130,11 +145,14 @@ public class BanBanServiceImpl implements BanBanService {
      * @throws BusinessException
      */
     @Override
-    public Boolean saveAppointment() throws Exception {
-        MultiValueMap params = new SaveAppointmentRequest(1, "202009242330012b53148eed5c496383f6e83590e10f5a", 10498098, "2020-11-15", "14:00-15:00", "雷振", 267, "13006189736", 7, 5, 224).buildRequest();
+    public Boolean saveAppointment(SaveAppointmentRequest saveAppointmentRequest) throws Exception {
+        MultiValueMap params = new SaveAppointmentRequest(1, "202009242330012b53148eed5c496383f6e83590e10f5a", 10498098, saveAppointmentRequest.getPlanDate(), saveAppointmentRequest.getTimes(), "雷振", saveAppointmentRequest.getRoomId(), "13006189736", 7, 5, saveAppointmentRequest.getSimId()).buildRequest();
         MultiValueMap headers = BanBanRequestHeader.buildHeader(token);
         String banBanResponseEntity = HttpUtils.httpPostForForm(SAVE_APPOINTMENT_URL, restTemplate, params, headers);
-        dealResponseForObject(banBanResponseEntity, SIMULATOR_NUMBER_URL, params);
+        Object object = dealResponseForObject(banBanResponseEntity, SIMULATOR_NUMBER_URL, params);
+        if(null == object){
+            return false;
+        }
         return true;
     }
 

@@ -13,6 +13,7 @@ import cn.magikarpll.ticket.common.utils.StreamUtils;
 import cn.magikarpll.ticket.order.async.service.DailyOrderService;
 import cn.magikarpll.ticket.order.async.service.ScheduleOrderService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -46,14 +47,11 @@ public class TicketOrderServiceImpl implements TicketOrderService {
     @Override
     public String startOrderTicket() throws BusinessException {
 
-//        //启动一个登录线程
-//        threadPoolExecutor.scheduleAtFixedRate(new LoginThread(),0, 10, TimeUnit.SECONDS);
-
-        //启动一个时时刷新捡漏线程
-        threadPoolExecutor.scheduleAtFixedRate(new DailyOrderService(),10, 1, TimeUnit.SECONDS);
-
-        //启动一个每日定时抢票线程,提前30s启动
-        threadPoolExecutor.scheduleAtFixedRate(new ScheduleOrderService(), DateUtils.computeTimeDurationBeforeScheduleEveryday(startTime) - 30, DateUtils.SECONDS_PER_DAY, TimeUnit.SECONDS);
+//        //启动一个时时刷新捡漏线程
+//        threadPoolExecutor.schedule(new DailyOrderService(),10, TimeUnit.SECONDS);
+//
+//        //启动一个每日定时抢票线程,提前30s启动
+//        threadPoolExecutor.scheduleAtFixedRate(new ScheduleOrderService(), DateUtils.computeTimeDurationBeforeScheduleEveryday(startTime) - 30, DateUtils.SECONDS_PER_DAY, TimeUnit.SECONDS);
 
         return null;
     }
@@ -91,7 +89,7 @@ public class TicketOrderServiceImpl implements TicketOrderService {
         //需要序列化，给每日刷新的那个用
         List<SimulatorNumberRequest> simulatorNumberRequests = new ArrayList<>();
         for(Integer iR: sortedRoomId){
-            tempSimulatorNumberRequests = SimulatorNumberRequest.convertToEntiy(banBanService.getAppointmentCount(iR, queryDate), iR);
+            tempSimulatorNumberRequests = SimulatorNumberRequest.convertToEntiy(banBanService.getAppointmentCount(iR, queryDate), iR, queryDate);
             if(null != tempSimulatorNumberRequests){
                 simulatorNumberRequests.addAll(tempSimulatorNumberRequests);
                 tempSimulatorNumberRequests = null;
@@ -115,6 +113,7 @@ public class TicketOrderServiceImpl implements TicketOrderService {
         }
 
         //序列化保存simulatorNumberRequests和saveAppointmentRequests
+        StreamUtils.writeObject(sortedRoomId, new File("sortedRoomId"));
         StreamUtils.writeObject(simulatorNumberRequests, new File("simulatorNumberRequests"));
         StreamUtils.writeObject(saveAppointmentRequests, new File("saveAppointmentRequests"));
         return "success";

@@ -62,15 +62,10 @@ public class ThreadPoolConfiguration {
      * ScheduledThreadPoolExecutor
      * @return
      */
-    @Bean
+    @Bean(name = "scheduledThreadPoolExecutor")
     public Executor TicketExecutor(){
         ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(corePoolSize);
-        scheduledThreadPoolExecutor.setMaxPoolSize(maxPoolSize);
-        scheduledThreadPoolExecutor.setQueueCapacity(queueCapacity);
-        scheduledThreadPoolExecutor.setKeepAliveSeconds(keepAliveSeconds);
-        scheduledThreadPoolExecutor.setThreadNamePrefix(threadNamePrefix);
         scheduledThreadPoolExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
-        scheduledThreadPoolExecutor.initialize();
         return scheduledThreadPoolExecutor;
     }
 

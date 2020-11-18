@@ -64,6 +64,7 @@ public class SaveAppointmentRequest extends BaseBanbanRequest implements Seriali
             saveAppointmentRequest.setRoomId(simulatorNumberRequest.getRoomId());
             saveAppointmentRequest.setTimes(simulatorNumberRequest.getTime());
             saveAppointmentRequest.setSimId(simulatorNumberEntity.getSimId());
+            saveAppointmentRequest.setPlanDate(simulatorNumberRequest.getPlanDate());
             saveAppointmentRequests.add(saveAppointmentRequest);
         }
         return saveAppointmentRequests;
