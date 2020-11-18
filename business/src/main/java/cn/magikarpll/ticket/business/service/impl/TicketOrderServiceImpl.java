@@ -28,12 +28,6 @@ public class TicketOrderServiceImpl implements TicketOrderService {
 
     private static ScheduledThreadPoolExecutor threadPoolExecutor = new ScheduledThreadPoolExecutor(5);
 
-    @Value("${ticket.schedule.startDateTime}")
-    private String startDateTime;
-
-    @Value("${ticket.schedule.startTime}")
-    private String startTime;
-
     @Value("${ticket.schedule.query-date}")
     private String queryDate;
 
@@ -41,7 +35,8 @@ public class TicketOrderServiceImpl implements TicketOrderService {
     private BanBanService banBanService;
 
     //地区常量 ID areaId
-    private static final Integer[] AREA_CONSTANTS = {440303, 440304, 440305, 440309};
+    //罗湖区， 福田区， 南山区， 宝安区，龙岗区， 龙华区
+    private static final Integer[] AREA_CONSTANTS = {440303, 440304, 440305, 440306, 440307 ,440309};
 
 
     @Override
@@ -82,7 +77,7 @@ public class TicketOrderServiceImpl implements TicketOrderService {
 
         //按距离远近升序筛选出的roomId list 和 对应可用时间
         List<Integer> sortedRoomId = deptEntityList.stream()
-                .filter(d -> Double.parseDouble(d.getDistance()) < 10d)
+                .filter(d -> Double.parseDouble(d.getDistance()) < 17d)
                 .sorted(Comparator.comparing(DeptEntity::getDistance))
                 .map(d -> d.getRoomId())
                 .collect(Collectors.toList());

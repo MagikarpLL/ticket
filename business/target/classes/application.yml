@@ -44,3 +44,6 @@ httpclient:
   socketTimeout: 10000
   # 存活时间
   validateAfterInactivity: 10000
+
+
+

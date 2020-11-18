@@ -27,7 +27,7 @@ public class BanBanAbstractDailyOrderServiceImpl extends AbstractDailyOrderServi
     private BanBanService banBanService;
 
     @Override
-    @Async
+    @Async(value = "scheduledThreadPoolExecutor")
     public void dailyOrder() throws Exception {
         List<Integer> targetRoomList = StreamUtils.readObjectForList(new File("sortedRoomId"));
         List<SimulatorNumberRequest> simulatorNumberRequests = new ArrayList<>();
