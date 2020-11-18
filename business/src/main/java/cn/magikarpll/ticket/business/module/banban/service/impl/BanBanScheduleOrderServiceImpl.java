@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @EnableAsync
-public class BanBanAbstractScheduleOrderServiceImpl extends AbstractScheduleOrderServiceImpl {
+public class BanBanScheduleOrderServiceImpl extends AbstractScheduleOrderServiceImpl {
     @Override
     public void scheduleOrder() {
 
