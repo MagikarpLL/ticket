@@ -3,7 +3,6 @@ package cn.magikarpll.ticket.business.service.impl;
 import cn.magikarpll.ticket.business.module.banban.constant.BanBanConstant;
 import cn.magikarpll.ticket.business.module.banban.entity.request.SaveAppointmentRequest;
 import cn.magikarpll.ticket.business.module.banban.entity.request.SimulatorNumberRequest;
-import cn.magikarpll.ticket.business.module.banban.entity.response.AppointmentCountEntity;
 import cn.magikarpll.ticket.business.module.banban.entity.response.DeptEntity;
 import cn.magikarpll.ticket.business.module.banban.entity.response.SimulatorNumberEntity;
 import cn.magikarpll.ticket.business.module.banban.service.BanBanService;
@@ -11,19 +10,15 @@ import cn.magikarpll.ticket.business.service.TicketOrderService;
 import cn.magikarpll.ticket.common.exception.BusinessException;
 import cn.magikarpll.ticket.common.utils.DateUtils;
 import cn.magikarpll.ticket.common.utils.StreamUtils;
-import cn.magikarpll.ticket.login.thread.LoginThread;
-import cn.magikarpll.ticket.order.thread.DailyOrderThread;
-import cn.magikarpll.ticket.order.thread.ScheduleOrderThread;
+import cn.magikarpll.ticket.order.async.service.DailyOrderService;
+import cn.magikarpll.ticket.order.async.service.ScheduleOrderService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.File;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -55,10 +50,10 @@ public class TicketOrderServiceImpl implements TicketOrderService {
 //        threadPoolExecutor.scheduleAtFixedRate(new LoginThread(),0, 10, TimeUnit.SECONDS);
 
         //启动一个时时刷新捡漏线程
-        threadPoolExecutor.scheduleAtFixedRate(new DailyOrderThread(),10, 1, TimeUnit.SECONDS);
+        threadPoolExecutor.scheduleAtFixedRate(new DailyOrderService(),10, 1, TimeUnit.SECONDS);
 
         //启动一个每日定时抢票线程,提前30s启动
-        threadPoolExecutor.scheduleAtFixedRate(new ScheduleOrderThread(), DateUtils.computeTimeDurationBeforeScheduleEveryday(startTime) - 30, DateUtils.SECONDS_PER_DAY, TimeUnit.SECONDS);
+        threadPoolExecutor.scheduleAtFixedRate(new ScheduleOrderService(), DateUtils.computeTimeDurationBeforeScheduleEveryday(startTime) - 30, DateUtils.SECONDS_PER_DAY, TimeUnit.SECONDS);
 
         return null;
     }
