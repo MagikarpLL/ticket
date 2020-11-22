@@ -28,19 +28,19 @@ import java.util.stream.Collectors;
 @EnableAsync
 public class BanBanDailyOrderServiceImpl extends AbstractDailyOrderServiceImpl {
 
-    @Value("${}")
+//    @Value("${}")
     private String startTime;
 
-    @Value("${}")
+//    @Value("${}")
     private String whiteListDate;
 
-    @Value("${}")
+//    @Value("${}")
     private String whiteListTime;
 
-    @Value("${}")
+//    @Value("${}")
     private String blackListDate;
 
-    @Value("${}")
+//    @Value("${}")
     private String blackListTime;
 
 
@@ -120,12 +120,12 @@ public class BanBanDailyOrderServiceImpl extends AbstractDailyOrderServiceImpl {
 
     private List<AppointmentCountEntity> filterAppointmentCounts(List<AppointmentCountEntity> appointmentCountEntities, String orderDate){
         List<AppointmentCountEntity> whiteList = appointmentCountEntities.stream().filter(a -> this.filterWhiteListTime(a, orderDate)).collect(Collectors.toList());
-        List<AppointmentCountEntity>  weekday = appointmentCountEntities.stream()
-                .filter(a -> a.getTim)
-                .filter(a -> !this.filterWhiteListTime(a, orderDate))
-                .filter(a -> this.filterBlackListTime(a, orderDate))
-                .collect(Collectors.toList());
-        List<AppointmentCountEntity> weekend = appointmentCountEntities.stream().filter()
+//        List<AppointmentCountEntity>  weekday = appointmentCountEntities.stream()
+//                .filter(a -> a.getTim)
+//                .filter(a -> !this.filterWhiteListTime(a, orderDate))
+//                .filter(a -> this.filterBlackListTime(a, orderDate))
+//                .collect(Collectors.toList());
+//        List<AppointmentCountEntity> weekend = appointmentCountEntities.stream().filter()
 
 
         return null;

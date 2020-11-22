@@ -4,31 +4,33 @@ server:
     context-path: /business
 
 banban:
-  token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpblR5cGUiOiJzdHVkZW50IiwiZXhwIjoxNjA4MTUwNjAwLCJ1c2VySWQiOiIyMDIwMTAxMjIzMTYyMGR6NnB3cmVvd2Qzc3J0cjdlbWRleTQiLCJpYXQiOjE2MDU1NzcyNTYsImp0aSI6IjE3ZTEyOWE3MDcwNzRhNmZiNmZkNTIwZTQ1MmU5OTVjIn0.OXmUsCDa-2ik9lPfQMEEmjdJmXG0s3z7YeXC8KABgyc
+  token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpblR5cGUiOiJzdHVkZW50IiwiZXhwIjoxNjA4NTgyNjAwLCJ1c2VySWQiOiIyMDIwMTAxMjIzMTYyMGR6NnB3cmVvd2Qzc3J0cjdlbWRleTQiLCJpYXQiOjE2MDYwMDQ4MTcsImp0aSI6IjkyZWE3ZmUyZWJiMTRmYTQ5ZmI3MTZlZmNmNWQ2NzhmIn0.Yyzv88C6BWSQpuXeORdbMITEfxGCc5laUeazrzXpuVs
 
 ticket:
-  special:
-    inculde:
-      day:
-      time:
-    exclude:
-      day: 11-21
-      time: 08:00-13:00
-  daily:
-    common:
-      duration: 1,1,1,2,2,3
-      period: 3
-      start-time: 08:00
-      weekday:
-        start-time: 18:00
-  schedule:
-    query-date: 2020-11-17
-    common:
-      after: 2
-      begin-time: 08:25
-      start-time: 08:00
-      weekday:
-        start-time: 18:00
+  banban:
+    special:
+      inculde:
+        #格式为日期与时间一一对应，逗号分隔
+        day:
+        time:
+      exclude:
+        day: 11-21
+        time: 08:00-13:00
+    daily:
+      common:
+        duration: 1,1,1,2,2,3
+        period: 3
+        start-time: 08:30:00
+        weekday:
+          start-time: 18:00
+    schedule:
+      query-date: 2020-11-17
+      common:
+        after: 2
+        begin-time: 08:25
+        start-time: 08:00
+        weekday:
+          start-time: 18:00
 
 
 httpclient:

@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface BanBanService {
 
-    void change() throws BusinessException, Exception;
+    List<ChangeEntity> change() throws BusinessException, Exception;
 
     AreaEntity area() throws BusinessException, Exception;
 

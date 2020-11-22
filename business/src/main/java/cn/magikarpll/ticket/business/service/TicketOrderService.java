@@ -13,4 +13,6 @@ public interface TicketOrderService {
 
     String exportData() throws BusinessException, Exception;
 
+    String startOrderSpecial() throws Exception;
+
 }

@@ -52,11 +52,12 @@ public class BanBanServiceImpl implements BanBanService {
      * @throws BusinessException
      */
     @Override
-    public void change() throws Exception {
+    public List<ChangeEntity> change() throws Exception {
         MultiValueMap params = new ChangeRequest(16, 421182199604230035L).buildRequest();
         MultiValueMap headers = BanBanRequestHeader.buildHeader(token);
         String banBanResponseEntity = HttpUtils.httpPostForForm(CHANGE_URL, restTemplate, params, headers);
         List<ChangeEntity> changeEntity = dealResponseForList(banBanResponseEntity, CHANGE_URL, params, ChangeEntity.class);
+        return changeEntity;
     }
 
     /**
